@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 
-import Button from 'components/Button';
 import Home from 'components/Home';
+import Login from 'components/Login';
 import useAuth from 'hooks/useAuth';
 
 const TummyHealth: FC = () => {
-  const { isAuthenticated, login } = useAuth();
-  if (!isAuthenticated) return <Button onClick={login}>login</Button>;
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return <Login />;
   return <Home />;
 };
 

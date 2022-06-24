@@ -4,14 +4,13 @@ import Button from 'components/Button';
 import PageWrapper from 'components/PageWrapper';
 import useAuth from 'hooks/useAuth';
 
-const Home: FC = () => {
-  const { logout } = useAuth();
+const Login: FC = () => {
+  const { login } = useAuth();
   return (
-    <PageWrapper name="home">
-      <Button onClick={logout}>logout</Button>
-      <p>home</p>
+    <PageWrapper name="login">
+      <Button onClick={login}>login</Button>
     </PageWrapper>
   );
 };
 
-export default Home;
+export default Login;
