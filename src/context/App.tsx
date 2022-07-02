@@ -1,24 +1,32 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactElement } from 'react';
 
+import { ApiProvider, MockedApiResponse, TestApiProvider } from 'context/Api';
 import { AuthProvider, TestAuthProvider } from 'context/Auth';
 
 const Provider: FC<Props> = ({ children }) => (
-  <AuthProvider>{children}</AuthProvider>
+  <AuthProvider>
+    <ApiProvider uri="http://localhost:8000/graphql">{children}</ApiProvider>
+  </AuthProvider>
 );
 
 interface Props {
-  children: ReactNode;
+  children: ReactElement;
 }
 
-export const TestProvider: FC<TestProps> = ({ children, isAuthenticated }) => (
+export const TestProvider: FC<TestProps> = ({
+  children,
+  isAuthenticated,
+  mocks,
+}) => (
   <TestAuthProvider isAuthenticated={isAuthenticated}>
-    {children}
+    <TestApiProvider mocks={mocks}>{children}</TestApiProvider>
   </TestAuthProvider>
 );
 
 interface TestProps {
-  children: ReactNode;
+  children: ReactElement;
   isAuthenticated?: boolean;
+  mocks?: MockedApiResponse[];
 }
 
 export default Provider;

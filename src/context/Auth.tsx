@@ -5,11 +5,12 @@ import noop from 'utils/noop';
 
 const AuthContext = createContext<Context>({
   isAuthenticated: false,
-  login: () => noop,
-  logout: () => noop,
+  login: noop,
+  logout: noop,
 });
 
 interface Context {
+  getToken?: () => Promise<{ token: string }>;
   isAuthenticated: boolean;
   login: () => void;
   logout: () => void;
@@ -30,14 +31,19 @@ interface Props {
 }
 
 const InnerProvider: FC<Props> = ({ children }) => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, logout } =
+    useAuth0();
   const context = useMemo(
     () => ({
+      getToken: async () => {
+        const token = await getAccessTokenSilently();
+        return { token };
+      },
       isAuthenticated,
       login: loginWithRedirect,
       logout,
     }),
-    [isAuthenticated, loginWithRedirect, logout]
+    [getAccessTokenSilently, isAuthenticated, loginWithRedirect, logout]
   );
   return (
     <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
