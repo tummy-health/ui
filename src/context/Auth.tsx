@@ -18,6 +18,7 @@ interface Context {
 
 export const AuthProvider: FC<Props> = ({ children }) => (
   <Auth0Provider
+    audience="https://tummy-health/"
     clientId="zZl8zCFpO6i9wZtLEMxXmGdK1HSfzFqF"
     domain="dev-gia5r5ix.us.auth0.com"
     redirectUri={window.location.origin}

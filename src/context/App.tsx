@@ -5,7 +5,9 @@ import { AuthProvider, TestAuthProvider } from 'context/Auth';
 
 const Provider: FC<Props> = ({ children }) => (
   <AuthProvider>
-    <ApiProvider uri="http://localhost:8000/graphql">{children}</ApiProvider>
+    <ApiProvider uri="http://localhost:8000/dev/graphql">
+      {children}
+    </ApiProvider>
   </AuthProvider>
 );
 

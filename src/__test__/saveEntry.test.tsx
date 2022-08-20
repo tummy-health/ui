@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 import TummyHealth from 'components/TummyHealth';
 import { TestProvider } from 'context/App';
 import { SAVE_ENTRY_QUERY } from 'hooks/useSaveEntry';
-import wait from 'utils/wait';
 
 test('submit button shows loading indicator while mutation is pending', () => {
   const mocks = [
@@ -14,15 +13,17 @@ test('submit button shows loading indicator while mutation is pending', () => {
         query: SAVE_ENTRY_QUERY,
         variables: {
           date: '2020-01-01',
-          maxRating: 5,
           notes: 'Today I felt great!',
-          rating: 4,
+          ratingOutOfFive: 4,
         },
       },
       result: {
         data: {
-          entry: {
+          saveEntry: {
+            date: '2020-01-01',
             id: 'test id',
+            notes: 'Today I felt great!',
+            ratingOutOfFive: 4,
           },
         },
       },
@@ -47,22 +48,24 @@ test('submit button shows loading indicator while mutation is pending', () => {
   within(submit).getByTestId('loading-indicator-save');
 });
 
-test('success banner appears after mutation is successful', async () => {
+test('success text appears after mutation is successful', async () => {
   const mocks = [
     {
       request: {
         query: SAVE_ENTRY_QUERY,
         variables: {
           date: '2020-01-01',
-          maxRating: 5,
           notes: 'Today I felt great!',
-          rating: 4,
+          ratingOutOfFive: 4,
         },
       },
       result: {
         data: {
-          entry: {
+          saveEntry: {
+            date: '2020-01-01',
             id: 'test id',
+            notes: 'Today I felt great!',
+            ratingOutOfFive: 4,
           },
         },
       },
@@ -84,7 +87,5 @@ test('success banner appears after mutation is successful', async () => {
   userEvent.click(notes);
   userEvent.keyboard('Today I felt great!');
   userEvent.click(submit);
-  await wait();
-  await wait();
-  expect(screen.getByText('Saved entry')).toBeInTheDocument();
+  expect(await screen.findByText('Saved entry')).toBeInTheDocument();
 });
