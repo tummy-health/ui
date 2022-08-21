@@ -12,7 +12,7 @@ const useSaveEntry = (): {
   const [mutate, { data, loading: isLoading }] = useMutation<
     ApiResult,
     ApiVariables
-  >(SAVE_ENTRY_QUERY);
+  >(SAVE_ENTRY_QUERY, { refetchQueries: ['GetEntries'] });
   const { saveEntry: savedEntry } = data || {};
   return {
     isLoading,
