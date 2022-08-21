@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import TummyHealth from 'components/TummyHealth';
-import Provider from 'context/App';
+import AppProvider from 'context/App';
 import reportWebVitals from 'utils/reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -11,9 +11,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider>
+    <AppProvider>
       <TummyHealth />
-    </Provider>
+    </AppProvider>
   </React.StrictMode>
 );
 

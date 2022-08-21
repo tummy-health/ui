@@ -53,6 +53,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '_' }],
+    '@typescript-eslint/no-use-before-define': 'off',
   },
   settings: {
     'import/resolver': {
